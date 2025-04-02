@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/update/<%= userdata.id %>" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="">Name</label>
+        <input type="text" name="userName" id="" value="<%= userdata.userName %>" />
+      </div>
+      <div>
+        <label for="">email</label>
+        <input type="email" name="email" id="" value="<%= userdata.email %>"/>
+      </div>
+      <div>
+        <label for="">Uplod</label>
+        <input type="file" name="image" id="" /> <img src="<%= userdata.image%>"  height="100px" alt="">
+      </div>
+      <button>Submit</button>
+    </form>
+  </body>
+</html>

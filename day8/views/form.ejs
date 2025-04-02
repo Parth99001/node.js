@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="/add-data" method="post" enctype="multipart/form-data">
+      <div>
+        <label for="">Name</label>
+        <input type="text" name="userName" id="" />
+      </div>
+      <div>
+        <label for="">email</label>
+        <input type="email" name="email" id="" />
+      </div>
+      <div>
+        <label for="">Uplod</label>
+        <input type="file" name="image" id="" />
+      </div>
+      <button>Submit</button>
+    </form>
+
+    <div>
+      <table border="">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>email</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% userdata.map((data, i) => { %>
+          <tr>
+            <td><%= data.userName %></td>
+            <td><%= data.email %></td>
+            <td><img src="<%= data.image %>" height="100px" alt=""></td>
+            <td><a href="/delete/<%= data.id %>">Delete</a> <a href="/edit/<%= data.id %>">Edit</a></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
