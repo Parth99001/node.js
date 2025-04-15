@@ -1,0 +1,7 @@
+<%- include('partials/navbar') %>
+<h2 style="text-align:center;margin-bottom:20px;color:#333;">New Task</h2>
+<form action="/tasks" method="POST" style="max-width:600px;margin:auto;padding:25px;border:1px solid #ccc;border-radius:8px;background-color:#f9f9f9;box-shadow:0 4px 8px rgba(0,0,0,0.1);">
+  <input type="text" name="title" placeholder="Task Title" required style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:4px;">
+  <textarea name="description" placeholder="Description" style="width:100%;padding:12px;margin:10px 0;border:1px solid #ddd;border-radius:4px;"></textarea>
+  <button type="submit" style="width:100%;padding:12px;background:#4CAF50;color:white;border:none;border-radius:4px;font-size:16px;">Create Task</button>
+</form>

@@ -13,8 +13,7 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/users",UserRouter)
-
-app.use(auth);
+app.use('/Product', UserRouter);
 app.listen(process.env.PORT, (error) => {
     if (error) {
         console.log("Server is not connected", error);

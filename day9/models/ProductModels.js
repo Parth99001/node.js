@@ -4,8 +4,7 @@ const ProductSchema = mongoose.Schema({
   productName: {
     type: String,
     required: true,
-  },
-});
+  }})
 
 const ProductModel = mongoose.model("Product", ProductSchema);
 

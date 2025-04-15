@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js"; 
 
 const Navbar = () => {
@@ -37,6 +36,9 @@ const Navbar = () => {
               <>
                 <li className="nav-item">
                   <Link className="nav-link text-dark" to="/dashboard">Dashboard</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link text-dark" to="/editData">Edit Data</Link>
                 </li>
                 <li className="nav-item">
                   <button 

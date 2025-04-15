@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-  const [token, settoken] = useState(localStorage.getItem("token"));
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -22,11 +22,15 @@ const Dashboard = () => {
     };
 
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:9090/users/${id}`);
+      await axios.delete(`http://localhost:9090/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setUsers(users.filter((user) => user._id !== id));
     } catch (err) {
       alert("Error deleting user");
@@ -70,7 +74,7 @@ const Dashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {users && users.length > 0 ? (
+          {users.length > 0 ? (
             users.map((user) => (
               <tr key={user._id} style={{ textAlign: "center" }}>
                 <td style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
@@ -95,7 +99,7 @@ const Dashboard = () => {
                     Delete
                   </button>
                   <button
-                    onClick={() => navigate(`/EditData/${user._id}`)}
+                    onClick={() => navigate(`/editdata/${user._id}`)}
                     style={{
                       backgroundColor: "blue",
                       color: "white",

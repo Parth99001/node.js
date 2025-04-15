@@ -1,35 +1,30 @@
-jwt = require('jsonwebtoken');
-bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
+const UserModel = require("../models/userModel");
 
-const auth = async (req,res,next)=>{
-    try {
-        let token = req.headers.authorization;
-        if(!token)
-        {
-            return res.status(401).json({message:"Unauthorized"});
-        }
-        let decoded = jwt.verify(token.split(" ")[1], process.env.SECRET_KEY);
-        if(!decoded)
-        {
-            return res.status(403).json({message:"Invalid token"});
-        }
-
-        if(decoded.email !== req.email)
-        {
-            return res.status(400).json({message:"Invalid email"});
-        }
-        console.log(decoded);
-        const checkpassword = await bcrypt.compare(
-            req.body.password,decoded.user.password
-        );
-        console.log(checkpassword);
-        if(!checkpassword)
-        {
-            return res.status(403).json({ message: "Invalid password" });
-        }
-        next();
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
+const auth = async (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Unauthorized" });
     }
-}
+
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+    if (!decoded || !decoded.id) {
+      return res.status(403).json({ message: "Invalid token" });
+    }
+
+    const user = await UserModel.findById(decoded.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = auth;
